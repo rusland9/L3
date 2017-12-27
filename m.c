@@ -12,7 +12,7 @@ int main() {
   size=1;                                               //sent(2) - кол-во предложений в исходном(конечном) тексте
   c=getchar();
   *text=c;                                            //text(2) - исходный(конечный) текст 
-  while (text[size] != '\n' ){                     //n - кол-во фрагментов памяти размером N выделенных под текст
+  while (text[size-1] != '\n' ){                     //n - кол-во фрагментов памяти размером N выделенных под текст
       if (size == (N*n-1)){
         n++;
         text =(char*)realloc(text,N*n*sizeof(char));
@@ -23,7 +23,7 @@ int main() {
           sent++;
       size++;       
   } 
-  text[size+1]='\0';
+  text[size]='\0';
   //Форматирование текста
   char* text2=(char*)calloc((size+sent+1),sizeof(char));
   int i, j, sw=0, t=0, space=0;                       //space - кол-во пробелов
@@ -33,6 +33,7 @@ int main() {
           text[j]=text[i];
           text[j+1]='\n';
           j+=2;
+          space=1;
           continue;
       }    
       if (sw && (!isspace(text[i]) || (text[i] != ('.' || '?' || ';'))))
